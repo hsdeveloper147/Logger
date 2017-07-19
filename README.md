@@ -11,6 +11,9 @@ Further you need to configre the localhost to run the server.
 ### OR 
 follow [this](https://classroom.udacity.com/courses/ud197/lessons/3423258756/concepts/14c72fe3-e3fe-4959-9c4b-467cf5b7c3a0) link for easy setup  
 This easy setup installs a VM ware and provides python and postgreSQl and required customisation by itself.  
+### SQL file
+Download the file from [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)  
+Put this sql file in the extracted folder (this repo).   
 
 ## Running the Code
 1.Run the terminal and type ``` psql -d news -f newsdata.sql ``` to import the data.  
