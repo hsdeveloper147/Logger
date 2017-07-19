@@ -9,10 +9,9 @@ db = psycopg2.connect(database=DBNAME)
 
 print "printing results into output.txt file ..."
 cursor = db.cursor()
-createViewQuery = "create view TopArticles as select substring" + \
-                  "(path from 10) as slug,count(*) as num from log group " + \
-                  "by path order by num desc limit 8 offset 1;"
-cursor.execute(createViewQuery)
+# Toparticles is a View that is created from the following command in psql-
+# create view TopArticles as select substring(path from 10) as slug,count(*) +\
+# as num from log group by path order by num desc limit 8 offset 1;
 selectQuery = "select title,num from articles,TopArticles where " + \
               "articles.slug=TopArticles.slug order by num desc limit 3;"
 cursor.execute(selectQuery)
@@ -35,10 +34,10 @@ f.write("Answer -\n")
 for result in results:
     f.write(result[0] + " - " + str(result[1]) + " views\n")
 
-createViewQuery2 = "create view newlog as select trim(regexp_replace" + \
-                  "(to_char(time,'Month dd,YYYY')," + \
-                   "'\s+', ' ', 'g')) as time,status from log;"
-cursor.execute(createViewQuery2)
+# newlog is the View created from the following command in the psql terminal
+# create view newlog as select trim(regexp_replace + \
+# (to_char(time,'Month dd,YYYY'),'\s+', ' ', 'g')) as time,status from log;
+
 selectQuery3 = "select time,round(percentage::numeric,1) from " + \
           "(select (scount::float/count(*)::float)*100 as " + \
           "percentage,newlog.time from newlog,(select time,count(*) " + \
