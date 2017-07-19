@@ -13,6 +13,11 @@ follow [this](https://classroom.udacity.com/courses/ud197/lessons/3423258756/con
 This easy setup installs a VM ware and provides python and postgreSQl and required customisation by itself.  
 
 ## Running the Code
-The repo consists of a file reporting-tool.py. Run it in the terminal by ``` python reporting-tool.py```.  
+1.Run the terminal and type ``` psql -d news -f newsdata.sql ``` to import the data.  
+2.Type ``` psql -d news``` to get to the news database.  
+3.**Important** - Since in addition to imported tables I have created two Views you have to run following 
+3a.```create view TopArticles as select substring(path from 10) as slug,count(*) as num from log group by path order by num desc limit 8 offset 1;```   
+3b```create view newlog as select trim(regexp_replace(to_char(time,'Month dd,YYYY'),'\s+', ' ', 'g')) as time,status from log;```
+4.The repo consists of a file reporting-tool.py. Run it in the terminal by ``` python reporting-tool.py```.  
 The output file output.txt will be created a
 and the log results will be written to this file.
